@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore.Storage;
+
 namespace SalesManagement_SysDev
 {
     public partial class F_login : Form
@@ -42,6 +44,8 @@ namespace SalesManagement_SysDev
         private void btn_InsertSampleData_Click(object sender, EventArgs e)
         {
             using SalesManagementContext context = new SalesManagementContext();
+
+            IDbContextTransaction dbContextTransaction = context.Database.BeginTransaction();
 
             List<MPosition> po = context.MPositions.OrderBy(x => x.PoId).ToList();
             List<MMaker> ma = new List<MMaker>();
@@ -712,6 +716,8 @@ namespace SalesManagement_SysDev
                 context.TSyukkoDetails.AddRange(syd);
                 context.SaveChanges();
             }
+
+            dbContextTransaction.Commit();
 
             MessageBox.Show("サンプルデータ登録完了");
         }
