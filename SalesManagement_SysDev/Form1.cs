@@ -97,7 +97,27 @@ namespace SalesManagement_SysDev
         private void DataGridView1Click(object sender, System.EventArgs e)
         {
 
-            Debug.WriteLine("");
+            foreach (DataGridViewRow dataGridViewRow in dataGridView1.SelectedRows)
+            {
+
+                int index = 0;
+
+                foreach (DataGridViewTextBoxCell dataGridViewTextBoxCell in dataGridViewRow.Cells)
+                {
+
+                    if (index++ < 5)
+                    {
+
+                        Debug.WriteLine("Value:[{0}] FormattedValue[{1}] EditedFormattedValue[{2}]",
+                            dataGridViewTextBoxCell.Value,
+                            dataGridViewTextBoxCell.FormattedValue,
+                            dataGridViewTextBoxCell.EditedFormattedValue);
+
+                    }
+
+                }
+
+            }
 
         }
     }
