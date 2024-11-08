@@ -28,8 +28,8 @@ namespace SalesManagement_SysDev
         private void Initialize()
         {
 
-            label1.Text = "MaId";
-            label2.Text = "MaName";
+            label1.Text = "SoId";
+            label2.Text = "SoName";
             button1.Text = "指定内容で検索する";
 
         }
@@ -45,9 +45,9 @@ namespace SalesManagement_SysDev
             {
 
                 dataGridView1.DataSource = (
-                    from mMaker in context.MMakers
-                    where mMaker.MaId == int.Parse(textBox1.Text)
-                    where mMaker.MaName.StartsWith(textBox2.Text)
+                    from mMaker in context.MSalesOffices
+                    where mMaker.SoId == int.Parse(textBox1.Text)
+                    where mMaker.SoName.StartsWith(textBox2.Text)
                     select mMaker
                     ).ToList();
 
@@ -56,8 +56,8 @@ namespace SalesManagement_SysDev
             {
 
                 dataGridView1.DataSource = (
-                    from mMaker in context.MMakers
-                    where mMaker.MaId == int.Parse(textBox1.Text)
+                    from mMaker in context.MSalesOffices
+                    where mMaker.SoId == int.Parse(textBox1.Text)
                     select mMaker
                     ).ToList();
 
@@ -66,8 +66,8 @@ namespace SalesManagement_SysDev
             {
 
                 dataGridView1.DataSource = (
-                    from mMaker in context.MMakers
-                    where mMaker.MaName.StartsWith(textBox2.Text)
+                    from mMaker in context.MSalesOffices
+                    where mMaker.SoName.StartsWith(textBox2.Text)
                     select mMaker
                     ).ToList();
 
@@ -75,7 +75,7 @@ namespace SalesManagement_SysDev
             else
             {
 
-                dataGridView1.DataSource = context.MMakers.ToList();
+                dataGridView1.DataSource = context.MSalesOffices.ToList();
 
             }
 
