@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -63,7 +64,7 @@ namespace SalesManagement_SysDev
                     ).ToList();
 
             }
-            else if(textBox1.Text.Length > 0)
+            else if (textBox1.Text.Length > 0)
             {
 
                 dataGridView1.DataSource = (
@@ -89,6 +90,13 @@ namespace SalesManagement_SysDev
                 dataGridView1.DataSource = context.MSalesOffices.ToList();
 
             }
+
+        }
+
+        private void DataGridView1Click(object sender, System.EventArgs e)
+        {
+
+            Debug.WriteLine("");
 
         }
     }
