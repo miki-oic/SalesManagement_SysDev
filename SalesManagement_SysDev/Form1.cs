@@ -37,6 +37,7 @@ namespace SalesManagement_SysDev
              * https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.forms.datagridview.multiselect?view=windowsdesktop-8.0
              */
             dataGridView1.MultiSelect = false;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
         }
 
