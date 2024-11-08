@@ -31,6 +31,10 @@ namespace SalesManagement_SysDev
             label1.Text = "SoId";
             label2.Text = "SoName";
             button1.Text = "指定内容で検索する";
+            /*
+             * 参考サイト：
+             * https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.forms.datagridview.multiselect?view=windowsdesktop-8.0
+             */
             dataGridView1.MultiSelect = false;
 
         }
