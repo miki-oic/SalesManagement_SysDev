@@ -31,6 +31,7 @@ namespace SalesManagement_SysDev
             label1.Text = "SoId";
             label2.Text = "SoName";
             button1.Text = "指定内容で検索する";
+            dataGridView1.MultiSelect = false;
 
         }
 
