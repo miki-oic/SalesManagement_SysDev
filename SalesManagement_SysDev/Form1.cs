@@ -45,10 +45,10 @@ namespace SalesManagement_SysDev
             {
 
                 dataGridView1.DataSource = (
-                    from mMaker in context.MSalesOffices
-                    where mMaker.SoId == int.Parse(textBox1.Text)
-                    where mMaker.SoName.StartsWith(textBox2.Text)
-                    select mMaker
+                    from mSalesOffice in context.MSalesOffices
+                    where mSalesOffice.SoId == int.Parse(textBox1.Text)
+                    where mSalesOffice.SoName.StartsWith(textBox2.Text)
+                    select mSalesOffice
                     ).ToList();
 
             }
@@ -56,9 +56,9 @@ namespace SalesManagement_SysDev
             {
 
                 dataGridView1.DataSource = (
-                    from mMaker in context.MSalesOffices
-                    where mMaker.SoId == int.Parse(textBox1.Text)
-                    select mMaker
+                    from mSalesOffice in context.MSalesOffices
+                    where mSalesOffice.SoId == int.Parse(textBox1.Text)
+                    select mSalesOffice
                     ).ToList();
 
             }
@@ -66,9 +66,9 @@ namespace SalesManagement_SysDev
             {
 
                 dataGridView1.DataSource = (
-                    from mMaker in context.MSalesOffices
-                    where mMaker.SoName.StartsWith(textBox2.Text)
-                    select mMaker
+                    from mSalesOffice in context.MSalesOffices
+                    where mSalesOffice.SoName.StartsWith(textBox2.Text)
+                    select mSalesOffice
                     ).ToList();
 
             }
