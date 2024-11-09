@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,12 +19,18 @@ namespace SalesManagement_SysDev
     public partial class Form1 : Form
     {
 
+        private Form2 form2;
+        private List<SelectListener> selectListeners = new List<SelectListener>();
+
         public Form1()
         {
 
             InitializeComponent();
 
             Initialize();
+
+            form2 = new Form2(this);
+            form2.Show();
 
         }
 
@@ -38,6 +46,13 @@ namespace SalesManagement_SysDev
              */
             dataGridView1.MultiSelect = false;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+        }
+
+        public void AddSelectListener(SelectListener selectListener)
+        {
+
+            selectListeners.Add(selectListener);
 
         }
 
@@ -97,6 +112,8 @@ namespace SalesManagement_SysDev
         private void DataGridView1Click(object sender, System.EventArgs e)
         {
 
+            MSalesOffice selectedMSalesOffice = new MSalesOffice();
+
             foreach (DataGridViewRow dataGridViewRow in dataGridView1.SelectedRows)
             {
 
@@ -105,21 +122,85 @@ namespace SalesManagement_SysDev
                 foreach (DataGridViewTextBoxCell dataGridViewTextBoxCell in dataGridViewRow.Cells)
                 {
 
-                    if (index++ < 5)
+                    // public int SoId { get; set; }
+                    if (index is 0)
                     {
 
-                        Debug.WriteLine("Value:[{0}] FormattedValue[{1}] EditedFormattedValue[{2}]",
-                            dataGridViewTextBoxCell.Value,
-                            dataGridViewTextBoxCell.FormattedValue,
-                            dataGridViewTextBoxCell.EditedFormattedValue);
+                        selectedMSalesOffice.SoId = AcquireIntegerValue(dataGridViewTextBoxCell);
 
                     }
+                    // public string SoName { get; set; } = null!;
+                    else if (index is 1)
+                    {
+                        
+                        selectedMSalesOffice.SoName = AcquireStringValue(dataGridViewTextBoxCell);
+
+                    }
+                    // public string SoAddress { get; set; } = null!;
+                    else if (index is 2)
+                    {
+
+                        selectedMSalesOffice.SoAddress = AcquireStringValue(dataGridViewTextBoxCell);
+
+                    }
+                    // public string SoPhone { get; set; } = null!;
+                    else if (index is 3)
+                    {
+
+                        selectedMSalesOffice.SoPhone = AcquireStringValue(dataGridViewTextBoxCell);
+
+                    }
+                    // public string SoPostal { get; set; } = null!;
+                    else if (index is 4)
+                    {
+
+                        selectedMSalesOffice.SoPostal = AcquireStringValue(dataGridViewTextBoxCell);
+
+                    }
+                    // public string SoFax { get; set; } = null!;
+                    else if (index is 5)
+                    {
+
+                        selectedMSalesOffice.SoFax = AcquireStringValue(dataGridViewTextBoxCell);
+
+                    }
+                    // public int SoFlag { get; set; }
+                    else if (index is 6)
+                    {
+
+                        selectedMSalesOffice.SoFlag = AcquireIntegerValue(dataGridViewTextBoxCell);
+
+                    }
+
+                    index++;
 
                 }
 
             }
 
+            foreach (SelectListener listener in selectListeners)
+            {
+
+                listener.OnSelect(selectedMSalesOffice);
+
+            }
+
         }
+
+        private int AcquireIntegerValue(DataGridViewTextBoxCell dataGridViewTextBoxCell)
+        {
+
+            return int.Parse(dataGridViewTextBoxCell.EditedFormattedValue.ToString());
+
+        }
+
+        private string AcquireStringValue(DataGridViewTextBoxCell dataGridViewTextBoxCell)
+        {
+
+            return dataGridViewTextBoxCell.EditedFormattedValue.ToString();
+
+        }
+
     }
 
 }
