@@ -90,7 +90,6 @@ namespace SalesManagement_SysDev
             soFlagLabel.TabIndex = 0;
             soFlagLabel.Text = "SoFlag";
 
-            Location = new Point(42, 44);
             Name = "panel1";
             Size = new Size(550, 390);
             TabIndex = 0;

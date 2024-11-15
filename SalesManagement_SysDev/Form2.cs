@@ -42,6 +42,7 @@ namespace SalesManagement_SysDev
         {
 
             mSalesOfficePanel = new MSalesOfficePanel();
+            mSalesOfficePanel.Location = new Point(40, 5);
 
             Controls.Add(mSalesOfficePanel);
 
