@@ -1,6 +1,6 @@
 ﻿namespace SalesManagement_SysDev
 {
-    partial class Form2
+    partial class UpdateForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,15 +30,15 @@
         {
             SuspendLayout();
             // 
-            // Form2
+            // Form3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(554, 371);
-            Margin = new Padding(2, 2, 2, 2);
-            Name = "Form2";
-            Text = "Form2";
+            ClientSize = new Size(800, 450);
+            Name = "Form3";
+            Text = "Form3";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

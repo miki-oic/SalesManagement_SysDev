@@ -19,7 +19,8 @@ namespace SalesManagement_SysDev
     public partial class Form1 : Form
     {
 
-        private Form2 form2;
+        private RegisterForm form2;
+        private UpdateForm form3;
         private List<SelectListener> selectListeners = new List<SelectListener>();
 
         public Form1()
@@ -29,8 +30,11 @@ namespace SalesManagement_SysDev
 
             Initialize();
 
-            form2 = new Form2(this);
+            form2 = new RegisterForm(this);
+            form3 = new UpdateForm(this);
+
             form2.Show();
+            form3.Show();
 
         }
 

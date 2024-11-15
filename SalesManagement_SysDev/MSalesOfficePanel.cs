@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SalesManagement_SysDev
 {
@@ -13,7 +14,9 @@ namespace SalesManagement_SysDev
         private MSalesOffice mSalesOffice = MSalesOfficeNullObject.GetInstance();
         private Label soIdLabel = new Label();
         private Label soNameLabel = new Label();
+        private RegisterTextBox soNameTextBox;
         private Label soAddressLabel = new Label();
+        private UpdateTextBox soAddressTextBox;
         private Label soPhoneLabel = new Label();
         private Label soPostalLabel = new Label();
         private Label soFaxLabel = new Label();
@@ -25,6 +28,19 @@ namespace SalesManagement_SysDev
         public MSalesOfficePanel()
         {
 
+            soNameTextBox = new RegisterTextBox();
+            soAddressTextBox = new UpdateTextBox();
+
+            Initialize();
+
+        }
+
+        public MSalesOfficePanel(Form form)
+        {
+
+            soNameTextBox = new RegisterTextBox(form);
+            soAddressTextBox = new UpdateTextBox(form);
+
             Initialize();
 
         }
@@ -34,7 +50,9 @@ namespace SalesManagement_SysDev
 
             SuspendLayout();
 
-            // SoId
+            /*
+             * SoId
+             */
             soIdLabel.AutoSize = true;
             soIdLabel.Location = new Point(50, 50);
             soIdLabel.Name = "soIdLabel";
@@ -42,7 +60,9 @@ namespace SalesManagement_SysDev
             soIdLabel.TabIndex = 0;
             soIdLabel.Text = "SoId";
 
-            // SoName
+            /*
+             * SoName
+             */
             soNameLabel.AutoSize = true;
             soNameLabel.Location = new Point(50, 90);
             soNameLabel.Name = "soNameLabel";
@@ -50,7 +70,14 @@ namespace SalesManagement_SysDev
             soNameLabel.TabIndex = 0;
             soNameLabel.Text = "SoName";
 
-            // SoAddress
+            soNameTextBox.Location = new Point(360, 90);
+            soNameTextBox.Name = "soNameTextBox";
+            soNameTextBox.Size = new Size(300, 30);
+            soNameTextBox.TabIndex = 0;
+
+            /*
+             * SoAddress
+             */
             soAddressLabel.AutoSize = true;
             soAddressLabel.Location = new Point(50, 130);
             soAddressLabel.Name = "soAddressLabel";
@@ -58,7 +85,14 @@ namespace SalesManagement_SysDev
             soAddressLabel.TabIndex = 0;
             soAddressLabel.Text = "SoAddress";
 
-            // SoPhone
+            soAddressTextBox.Location = new Point(360, 130);
+            soAddressTextBox.Name = "soNameTextBox";
+            soAddressTextBox.Size = new Size(300, 30);
+            soAddressTextBox.TabIndex = 0;
+
+            /*
+             * SoPhone
+             */
             soPhoneLabel.AutoSize = true;
             soPhoneLabel.Location = new Point(50, 170);
             soPhoneLabel.Name = "soPhoneLabel";
@@ -66,7 +100,9 @@ namespace SalesManagement_SysDev
             soPhoneLabel.TabIndex = 0;
             soPhoneLabel.Text = "SoPhone";
 
-            // SoPostal
+            /*
+             * SoPostal
+             */
             soPostalLabel.AutoSize = true;
             soPostalLabel.Location = new Point(50, 210);
             soPostalLabel.Name = "soPostalLabel";
@@ -74,7 +110,9 @@ namespace SalesManagement_SysDev
             soPostalLabel.TabIndex = 0;
             soPostalLabel.Text = "SoPostal";
 
-            // SoFax
+            /*
+             * SoFax
+             */
             soFaxLabel.AutoSize = true;
             soFaxLabel.Location = new Point(50, 250);
             soFaxLabel.Name = "soFaxLabel";
@@ -82,7 +120,9 @@ namespace SalesManagement_SysDev
             soFaxLabel.TabIndex = 0;
             soFaxLabel.Text = "SoFax";
 
-            // SoFlag
+            /*
+             * SoFlag
+             */
             soFlagLabel.AutoSize = true;
             soFlagLabel.Location = new Point(50, 290);
             soFlagLabel.Name = "soFlagLabel";
@@ -91,12 +131,14 @@ namespace SalesManagement_SysDev
             soFlagLabel.Text = "SoFlag";
 
             Name = "panel1";
-            Size = new Size(550, 390);
+            Size = new Size(720, 390);
             TabIndex = 0;
 
             Controls.Add(soIdLabel);
             Controls.Add(soNameLabel);
+            Controls.Add(soNameTextBox);
             Controls.Add(soAddressLabel);
+            Controls.Add(soAddressTextBox);
             Controls.Add(soPhoneLabel);
             Controls.Add(soPostalLabel);
             Controls.Add(soFaxLabel);
@@ -104,6 +146,21 @@ namespace SalesManagement_SysDev
 
             ResumeLayout(false);
             PerformLayout();
+
+        }
+
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+
+            if (Visible)
+            {
+
+                soNameTextBox.OnShow(this);
+                soAddressTextBox.OnShow(this);
+
+            }
+
+            base.OnVisibleChanged(e);
 
         }
 
