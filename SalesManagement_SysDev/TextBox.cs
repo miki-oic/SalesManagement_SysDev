@@ -8,33 +8,39 @@ using System.Threading.Tasks;
 namespace SalesManagement_SysDev
 {
 
-    public class UpdateTextBox : TextBox, ClickEventListener, ShowEventListener
+    public class DisplayTargetTextBox : TextBox, ClickEventListener, ShowEventListener
     {
 
-        private Form form;
         private bool required = false;
+        private object target;
 
-        public UpdateTextBox()
+        public DisplayTargetTextBox()
         {
 
-        }
-
-        public UpdateTextBox(Form form)
-        {
-
-            this.form = form;
+            target = this;
 
         }
 
         public bool Required { get; set; }
 
-        public void OnClick(object sender)
+        public DisplayTargetTextBox AddTarget(object target)
         {
 
+            this.target = target;
+
+            return this;
+
+        }
+
+        public void OnClick(object sender)
+        {
+            
             if (Text.IsNullOrEmpty() && Required)
             {
 
                 BackColor = Color.Red;
+
+                throw new RequiredException();
 
             }
 
@@ -43,16 +49,16 @@ namespace SalesManagement_SysDev
         public void OnShow(object sender)
         {
 
-            if (form is RegisterForm)
-            {
-
-                Hide();
-
-            }
-            else if (form is UpdateForm)
+            if (sender.Equals(target))
             {
 
                 Show();
+
+            }
+            else
+            {
+
+                Hide();
 
             }
 

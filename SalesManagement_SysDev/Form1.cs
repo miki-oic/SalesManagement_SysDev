@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,8 +20,8 @@ namespace SalesManagement_SysDev
     public partial class Form1 : Form
     {
 
-        private RegisterForm form2;
-        private UpdateForm form3;
+        private RegisterForm registerForm;
+        private UpdateForm updateForm;
         private List<SelectListener> selectListeners = new List<SelectListener>();
 
         public Form1()
@@ -30,11 +31,11 @@ namespace SalesManagement_SysDev
 
             Initialize();
 
-            form2 = new RegisterForm(this);
-            form3 = new UpdateForm(this);
+            registerForm = new RegisterForm(this);
+            updateForm = new UpdateForm(this);
 
-            form2.Show();
-            form3.Show();
+            registerForm.Show();
+            updateForm.Show();
 
         }
 
@@ -43,7 +44,9 @@ namespace SalesManagement_SysDev
 
             label1.Text = "SoId";
             label2.Text = "SoName";
+
             button1.Text = "指定内容で検索する";
+
             /*
              * 参考サイト：
              * https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.forms.datagridview.multiselect?view=windowsdesktop-8.0
@@ -73,18 +76,13 @@ namespace SalesManagement_SysDev
 
             IDbContextTransaction dbContextTransaction = context.Database.BeginTransaction();
 
-            if (textBox1.Text.Length > 0 && textBox2.Text.Length > 0)
+            if (textBox1.Text.IsNullOrEmpty() && textBox2.Text.IsNullOrEmpty())
             {
 
-                dataGridView1.DataSource = (
-                    from mSalesOffice in context.MSalesOffices
-                    where mSalesOffice.SoId == int.Parse(textBox1.Text)
-                    where mSalesOffice.SoName.StartsWith(textBox2.Text)
-                    select mSalesOffice
-                    ).ToList();
+                dataGridView1.DataSource = context.MSalesOffices.ToList();
 
             }
-            else if (textBox1.Text.Length > 0)
+            else if (textBox2.Text.IsNullOrEmpty())
             {
 
                 dataGridView1.DataSource = (
@@ -94,7 +92,7 @@ namespace SalesManagement_SysDev
                     ).ToList();
 
             }
-            else if (textBox2.Text.Length > 0)
+            else if (textBox1.Text.IsNullOrEmpty())
             {
 
                 dataGridView1.DataSource = (
@@ -107,7 +105,12 @@ namespace SalesManagement_SysDev
             else
             {
 
-                dataGridView1.DataSource = context.MSalesOffices.ToList();
+                dataGridView1.DataSource = (
+                    from mSalesOffice in context.MSalesOffices
+                    where mSalesOffice.SoId == int.Parse(textBox1.Text)
+                    where mSalesOffice.SoName.StartsWith(textBox2.Text)
+                    select mSalesOffice
+                    ).ToList();
 
             }
 

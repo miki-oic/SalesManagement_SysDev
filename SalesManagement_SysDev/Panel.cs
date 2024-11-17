@@ -4,23 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.IdentityModel.Tokens;
 
 namespace SalesManagement_SysDev
 {
 
-    public class MSalesOfficePanel : Panel, SelectListener
+    public class MSalesOfficePanel : Panel, ClickEventListener, ShowEventListener, SelectListener
     {
 
         private MSalesOffice mSalesOffice = MSalesOfficeNullObject.GetInstance();
         private Label soIdLabel = new Label();
         private Label soNameLabel = new Label();
-        private RegisterTextBox soNameTextBox;
+        private DisplayTargetTextBox soNameTextBox = new DisplayTargetTextBox();
         private Label soAddressLabel = new Label();
-        private UpdateTextBox soAddressTextBox;
+        private DisplayTargetTextBox soAddressTextBox = new DisplayTargetTextBox();
         private Label soPhoneLabel = new Label();
         private Label soPostalLabel = new Label();
         private Label soFaxLabel = new Label();
         private Label soFlagLabel = new Label();
+        private List<ClickEventListener> clickEventListeners = new List<ClickEventListener>();
+        private List<ShowEventListener> showEventListeners = new List<ShowEventListener>();
+        private List<SelectListener> selectListeners = new List<SelectListener>();
 
         /// <summary>
         /// 画面デザイナー表示用コンストラクタ
@@ -28,20 +32,25 @@ namespace SalesManagement_SysDev
         public MSalesOfficePanel()
         {
 
-            soNameTextBox = new RegisterTextBox();
-            soAddressTextBox = new UpdateTextBox();
-
             Initialize();
 
         }
 
-        public MSalesOfficePanel(Form form)
+        public MSalesOfficePanel AddRegister(object register)
         {
 
-            soNameTextBox = new RegisterTextBox(form);
-            soAddressTextBox = new UpdateTextBox(form);
+            soNameTextBox.AddTarget(register).Required = true;
 
-            Initialize();
+            return this;
+
+        }
+
+        public MSalesOfficePanel AddUpdater(object updater)
+        {
+
+            soAddressTextBox.AddTarget(updater);
+
+            return this;
 
         }
 
@@ -62,6 +71,7 @@ namespace SalesManagement_SysDev
 
             /*
              * SoName
+             * 課題：パネル化せよ
              */
             soNameLabel.AutoSize = true;
             soNameLabel.Location = new Point(50, 90);
@@ -77,6 +87,7 @@ namespace SalesManagement_SysDev
 
             /*
              * SoAddress
+             * 課題：パネル化せよ
              */
             soAddressLabel.AutoSize = true;
             soAddressLabel.Location = new Point(50, 130);
@@ -134,6 +145,12 @@ namespace SalesManagement_SysDev
             Size = new Size(720, 390);
             TabIndex = 0;
 
+            clickEventListeners.Add(soNameTextBox);
+            clickEventListeners.Add(soAddressTextBox);
+
+            showEventListeners.Add(soNameTextBox);
+            showEventListeners.Add(soAddressTextBox);
+
             Controls.Add(soIdLabel);
             Controls.Add(soNameLabel);
             Controls.Add(soNameTextBox);
@@ -149,18 +166,37 @@ namespace SalesManagement_SysDev
 
         }
 
-        protected override void OnVisibleChanged(EventArgs e)
+        public void OnClick(object sender)
         {
 
-            if (Visible)
+            try
             {
 
-                soNameTextBox.OnShow(this);
-                soAddressTextBox.OnShow(this);
+                foreach (ClickEventListener clickEventListener in clickEventListeners)
+                {
+
+                    clickEventListener.OnClick(sender);
+
+                }
+            }
+            catch (RequiredException e)
+            {
+
+                // 課題：必要な実装をせよ
 
             }
 
-            base.OnVisibleChanged(e);
+        }
+
+        public void OnShow(object sender)
+        {
+
+            foreach (ShowEventListener showEventListener in showEventListeners)
+            {
+
+                showEventListener.OnShow(sender);
+
+            }
 
         }
 
